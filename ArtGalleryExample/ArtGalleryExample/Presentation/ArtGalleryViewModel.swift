@@ -56,7 +56,6 @@ class ArtGalleryViewModel: ObservableObject, ArtGalleryViewModelProtocol {
     }
     
     func loadNextPage() {
-        print(pagination?.totalPages)
         let totalPages = pagination?.totalPages ?? 1
         guard currentPage < totalPages else { return }
         service.fetchArtworks(page: currentPage + 1, limit: 20)
@@ -92,6 +91,7 @@ class ArtworkViewModel: ArtworkViewModelProtocol, ObservableObject, Equatable {
     let title: String
     let artistDisplay: String
     var imageID: String?
+    let description: String?
     
     @Published var error: Error?
     
@@ -106,20 +106,15 @@ class ArtworkViewModel: ArtworkViewModelProtocol, ObservableObject, Equatable {
         self.id = artwork.id
         self.title = artwork.title
         self.artistDisplay = artwork.artistDisplay ?? "Unknown"
+        self.description = artwork.description
         self.imageID = artwork.imageID
     }
     
     func fetchArtworkImage() {
         guard let imageID = imageID else { return }
-        if self.title == "Country Club Dance" {
-            print("hola")
-        }
         service.fetchArtworkImage(withID: imageID)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }) { image in
-                if self.title == "Country Club Dance" {
-                    print("hola")
-                }
                 self.image = image
             }
             .store(in: &cancellables)
