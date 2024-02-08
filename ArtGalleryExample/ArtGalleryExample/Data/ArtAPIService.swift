@@ -9,80 +9,60 @@ import Foundation
 import Alamofire
 import UIKit
 import SwiftUI
+import Combine
 
-
-/**
- * Protocol to use in dependency injection
- *
- * To use the service you must add it to your class via injection as follows:
- * Example:
- *   ````
- *   let service: ArtAPIServiceProtocol
- *
- *   init(service: ArtAPIServiceProtocol = ArtAPIService()) {
- *       self.service = service
- *   }
- *   ````
- */
 protocol ArtAPIServiceProtocol {
-    func fetchArtworks(page: Int, limit: Int, completion: @escaping (Result<[Artwork], Error>) -> Void)
-    func fetchArtist(artistId: Int,
-                     completion: @escaping (Result<ArtistData, Error>) -> Void)
-    func fetchArtworkImage(withID imageID: String,
-                           completion: @escaping (Image?) -> Void)
+    func fetchArtworks(page: Int, limit: Int) -> AnyPublisher<(artworks: [Artwork], pagination: Pagination), Error>
+    func fetchArtworkImage(withID imageID: String) -> AnyPublisher<Image, Error>
+//    func fetchArtist(artistId: Int) -> AnyPublisher<ArtistData, Error>
+
 }
 
 class ArtAPIService: ArtAPIServiceProtocol {
-    private let sessionManager: Session
+    private let session: Session
     
-    init(sessionManager: Session = .default) {
-        self.sessionManager = sessionManager
+    init(session: Session = .default) {
+        self.session = session
     }
     
-    func fetchArtworks(page: Int, limit: Int, completion: @escaping (Result<[Artwork], Error>) -> Void) {
+    func fetchArtworks(page: Int, limit: Int) -> AnyPublisher<(artworks: [Artwork], pagination: Pagination), Error> {
         let url = Endpoint.baseURL.rawValue + "artworks"
         let parameters: [String: Any] = ["page": page, "limit": limit]
-        
-        sessionManager.request(url, parameters: parameters).responseDecodable(of: ArtworkResponse.self) { response in
-            switch response.result {
-            case .success(let response):
-                completion(.success(response.data))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func fetchArtist(artistId: Int,
-                     completion: @escaping (Result<ArtistData, Error>) -> Void) {
-        let url = Endpoint.baseURL.rawValue + "artists/\(artistId)"
-        sessionManager.request(url).responseDecodable(of: ArtistData.self) { response in
-            switch response.result {
-            case .success(let artist):
-                completion(.success(artist))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func fetchArtworkImage(withID imageID: String, completion: @escaping (Image?) -> Void) {
-        let imageURL = "https://www.artic.edu/iiif/2/\(imageID)/full/843,/0/default.jpg"
-        sessionManager.request(imageURL).responseData { response in
-            switch response.result {
-            case .success(let data):
-                if let uiImage = UIImage(data: data) {
-                    let image = Image(uiImage: uiImage)
-                    DispatchQueue.main.async {
-                        completion(image)
-                    }
-                } else {
-                    completion(nil)
+
+        return session
+            .request(url, parameters: parameters)
+            .publishDecodable(type: ArtworkResponse.self)
+            .tryMap { response in
+                guard let artworksData = response.value?.artworksData,
+                      let pagination = response.value?.pagination else {
+                    throw URLError(.badServerResponse)
                 }
-            case .failure(let error):
-                print("Error fetching image: \(error)")
-                completion(nil)
+                return (artworks: artworksData, pagination: pagination)
             }
-        }
+            .mapError { $0 as Error }
+            .eraseToAnyPublisher()
     }
+
+
+    func fetchArtworkImage(withID imageID: String) -> AnyPublisher<Image, Error> {
+        let imageURL = Endpoint.imageBaseURL.rawValue + "\(imageID)/full/400,/0/default.jpg"
+        return session
+            .request(imageURL)
+            .publishData()
+            .tryMap { dataResponse -> Image in
+                guard let data = dataResponse.data else {
+                    throw URLError(.badServerResponse)
+                }
+                guard let uiImage = UIImage(data: data) else {
+                    throw URLError(.badServerResponse)
+                }
+                return Image(uiImage: uiImage)
+            }
+            .mapError { $0 as Error }
+            .eraseToAnyPublisher()
+    }
+
+//    func fetchArtist(artistId: Int) -> AnyPublisher<ArtistData, Error> {
+//        // todo
+//    }
 }

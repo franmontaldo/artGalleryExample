@@ -14,7 +14,6 @@
 		0B14D1BD2B6D513100BD6AEF /* ArtGalleryExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B14D1BC2B6D513100BD6AEF /* ArtGalleryExampleUITests.swift */; };
 		0B14D1BF2B6D513100BD6AEF /* ArtGalleryExampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B14D1BE2B6D513100BD6AEF /* ArtGalleryExampleUITestsLaunchTests.swift */; };
 		0B14D1CF2B6D545C00BD6AEF /* ArtGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B14D1CE2B6D545C00BD6AEF /* ArtGalleryView.swift */; };
-		0B14D1D12B6D548E00BD6AEF /* ArtPieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B14D1D02B6D548E00BD6AEF /* ArtPieceView.swift */; };
 		0B14D1D32B6D54B500BD6AEF /* ArtAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B14D1D22B6D54B500BD6AEF /* ArtAPIService.swift */; };
 		0B14D1D52B6D54D100BD6AEF /* ArtworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B14D1D42B6D54D100BD6AEF /* ArtworkModel.swift */; };
 		0B3629B82B72A9B800A08324 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3629B72B72A9B800A08324 /* Endpoint.swift */; };
@@ -52,7 +51,6 @@
 		0B14D1BC2B6D513100BD6AEF /* ArtGalleryExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtGalleryExampleUITests.swift; sourceTree = "<group>"; };
 		0B14D1BE2B6D513100BD6AEF /* ArtGalleryExampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtGalleryExampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0B14D1CE2B6D545C00BD6AEF /* ArtGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtGalleryView.swift; sourceTree = "<group>"; };
-		0B14D1D02B6D548E00BD6AEF /* ArtPieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtPieceView.swift; sourceTree = "<group>"; };
 		0B14D1D22B6D54B500BD6AEF /* ArtAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtAPIService.swift; sourceTree = "<group>"; };
 		0B14D1D42B6D54D100BD6AEF /* ArtworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkModel.swift; sourceTree = "<group>"; };
 		0B3629B72B72A9B800A08324 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 			isa = PBXGroup;
 			children = (
 				0B14D1CE2B6D545C00BD6AEF /* ArtGalleryView.swift */,
-				0B14D1D02B6D548E00BD6AEF /* ArtPieceView.swift */,
 				0B3629BE2B73330B00A08324 /* ArtGalleryViewModel.swift */,
 			);
 			path = Presentation;
@@ -319,7 +316,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B14D1D52B6D54D100BD6AEF /* ArtworkModel.swift in Sources */,
-				0B14D1D12B6D548E00BD6AEF /* ArtPieceView.swift in Sources */,
 				0B3629B82B72A9B800A08324 /* Endpoint.swift in Sources */,
 				0B3629BD2B73300C00A08324 /* ArtistModel.swift in Sources */,
 				0B3629BF2B73330B00A08324 /* ArtGalleryViewModel.swift in Sources */,

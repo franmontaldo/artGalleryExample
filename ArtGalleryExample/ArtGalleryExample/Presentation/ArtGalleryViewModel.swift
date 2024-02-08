@@ -6,117 +6,122 @@
 //
 
 import SwiftUI
+import Combine
 
 protocol ArtGalleryViewModelProtocol: AnyObject {
     var pagination: Pagination? { get }
     var artworks: [ArtworkViewModel] { get }
-    var isLoading: Bool { get }
     var error: Error? { get }
     
     func fetchArtworks()
     func loadNextPage()
 }
 
-class ArtGalleryViewModel: ArtGalleryViewModelProtocol, ObservableObject {
-    private let artAPIService: ArtAPIServiceProtocol
-    private var currentPage = 1
-    private var isFetching = false
+class ArtGalleryViewModel: ObservableObject, ArtGalleryViewModelProtocol {
+    var pagination: Pagination?
+    private var currentPage = 2
     
-    @Published var pagination: Pagination?
-    @Published var artworks: [ArtworkViewModel] = []
-    var isLoading: Bool = false
     @Published var error: Error?
     
-    init(artAPIService: ArtAPIServiceProtocol) {
-        self.artAPIService = artAPIService
+    @Published var artworks: [ArtworkViewModel] = []
+    
+    private let service: ArtAPIServiceProtocol
+    
+    private var cancellables: Set<AnyCancellable> = []
+    
+    init(service: ArtAPIServiceProtocol) {
+        self.service = service
+    }
+    
+    private func observeArtworkChanges() {
+        artworks.forEach { artworkViewModel in
+            artworkViewModel.objectWillChange
+                .sink { [weak self] _ in
+                    self?.objectWillChange.send()
+                }
+                .store(in: &cancellables)
+        }
     }
     
     func fetchArtworks() {
-        guard !isFetching else { return }
-        isFetching = true
-        isLoading = true
-        
-        artAPIService.fetchArtworks(page: 1, limit: 20) { [weak self] result in
-            guard let self = self else { return }
-            self.isFetching = false
-            self.isLoading = false
-            
-            switch result {
-            case .success(let artworks):
-                self.artworks = artworks.map { artwork in
-                    return ArtworkViewModel(
-                        id: artwork.id,
-                        title: artwork.title,
-                        artistDisplay: artwork.artistDisplay ?? "Unknown",
-                        thumbnail: artwork.thumbnail ?? nil
-                    )
-                }
-            case .failure(let error):
-                self.error = error
+        service.fetchArtworks(page: 1, limit: 20)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }) { artworks, pagination in
+                self.pagination = pagination
+                self.artworks = artworks.map { ArtworkViewModel(artwork: $0, service: self.service) }
+                self.observeArtworkChanges()
+                self.artworks.forEach { $0.fetchArtworkImage() }
             }
-        }
+            .store(in: &cancellables)
     }
     
     func loadNextPage() {
-        guard !isFetching else { return }
+        print(pagination?.totalPages)
         let totalPages = pagination?.totalPages ?? 1
         guard currentPage < totalPages else { return }
-        
-        isFetching = true
-        
-        artAPIService.fetchArtworks(page: currentPage + 1, limit: 20) { [weak self] result in
-            guard let self = self else { return }
-            self.isFetching = false
-            
-            switch result {
-            case .success(let artworks):
-                self.currentPage += 1
-                let newArtworks = artworks.map { artwork in
-                    return ArtworkViewModel(
-                        id: artwork.id,
-                        title: artwork.title,
-                        artistDisplay: artwork.artistDisplay ?? "Unknown",
-                        thumbnail: artwork.thumbnail ?? nil
-                    )
-                }
+        service.fetchArtworks(page: currentPage + 1, limit: 20)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }) { artworks, pagination in
+                self.pagination = pagination
+                let newArtworks = artworks.map { ArtworkViewModel(artwork: $0, service: self.service) }
                 self.artworks.append(contentsOf: newArtworks)
-            case .failure(let error):
-                self.error = error
+                self.currentPage += 1
+                self.observeArtworkChanges()
+                self.artworks.forEach { $0.fetchArtworkImage() }
             }
-        }
+            .store(in: &cancellables)
     }
 }
+
 
 protocol ArtworkViewModelProtocol: Identifiable {
     var id: Int { get }
     var title: String { get }
     var artistDisplay: String { get }
-    var thumbnail: Image? { get }
+    var imageID: String? { get }
+    var image: Image? { get }
+    var error: Error? { get }
+    
+    func fetchArtworkImage()
 }
 
-class ArtworkViewModel: ArtworkViewModelProtocol, Equatable {
-    static func == (lhs: ArtworkViewModel, rhs: ArtworkViewModel) -> Bool {
-        return lhs.id == rhs.id
-    }
+class ArtworkViewModel: ArtworkViewModelProtocol, ObservableObject, Equatable {
+    static func == (lhs: ArtworkViewModel, rhs: ArtworkViewModel) -> Bool { lhs.id == rhs.id }
     
     let id: Int
     let title: String
     let artistDisplay: String
-    let thumbnail: Image?
+    var imageID: String?
     
-    init(id: Int, title: String, artistDisplay: String, thumbnail: Thumbnail?) {
-        self.id = id
-        self.title = title
-        self.artistDisplay = artistDisplay
-        // TODO: transform thumbnail to a swiftui Image
-        guard let prefixRange = thumbnail?.lqip.range(of: "base64,"),
-              let data = Data(base64Encoded: String((thumbnail?.lqip[prefixRange.upperBound...])!)),
-              let image = UIImage(data: data) else {
-            self.thumbnail = nil
-            return
+    @Published var error: Error?
+    
+    @Published var image: Image?
+    
+    private let service: ArtAPIServiceProtocol
+    
+    private var cancellables: Set<AnyCancellable> = []
+    
+    init(artwork: Artwork, service: ArtAPIServiceProtocol) {
+        self.service = service
+        self.id = artwork.id
+        self.title = artwork.title
+        self.artistDisplay = artwork.artistDisplay ?? "Unknown"
+        self.imageID = artwork.imageID
+    }
+    
+    func fetchArtworkImage() {
+        guard let imageID = imageID else { return }
+        if self.title == "Country Club Dance" {
+            print("hola")
         }
-        self.thumbnail = Image(uiImage: image)
+        service.fetchArtworkImage(withID: imageID)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in }) { image in
+                if self.title == "Country Club Dance" {
+                    print("hola")
+                }
+                self.image = image
+            }
+            .store(in: &cancellables)
     }
 }
-
-

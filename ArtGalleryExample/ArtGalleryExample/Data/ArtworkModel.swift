@@ -9,17 +9,17 @@ import Foundation
 
 struct ArtworkResponse: Codable {
     let pagination: Pagination
-    let data: [Artwork]
+    let artworksData: [Artwork]
     
     enum CodingKeys: String, CodingKey {
         case pagination
-        case data
+        case artworksData = "data"
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         pagination = try container.decode(Pagination.self, forKey: .pagination)
-        data = try container.decode([Artwork].self, forKey: .data)
+        artworksData = try container.decode([Artwork].self, forKey: .artworksData)
     }
 }
 
@@ -56,7 +56,6 @@ struct Artwork: Codable {
     let dateDisplay: String?
     let mediumDisplay: String?
     let description: String?
-    let thumbnail: Thumbnail?
     let imageID: String?
 
     enum CodingKeys: String, CodingKey {
@@ -65,7 +64,6 @@ struct Artwork: Codable {
         case dateDisplay = "date_display"
         case mediumDisplay = "medium_display"
         case description
-        case thumbnail
         case imageID = "image_id"
     }
     
@@ -77,27 +75,7 @@ struct Artwork: Codable {
         dateDisplay = try container.decode(String?.self, forKey: .dateDisplay)
         mediumDisplay = try container.decode(String?.self, forKey: .mediumDisplay)
         description = try container.decode(String?.self, forKey: .description)
-        thumbnail = try container.decodeIfPresent(Thumbnail.self, forKey: .thumbnail)
         imageID = try container.decodeIfPresent(String.self, forKey: .imageID)
     }
 }
 
-struct Thumbnail: Codable {
-    let lqip: String
-    let width: Int
-    let height: Int
-    let altText: String?
-
-    enum CodingKeys: String, CodingKey {
-        case lqip, width, height
-        case altText = "alt_text"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        lqip = try container.decode(String.self, forKey: .lqip)
-        width = try container.decode(Int.self, forKey: .width)
-        height = try container.decode(Int.self, forKey: .height)
-        altText = try container.decode(String?.self, forKey: .altText)
-    }
-}

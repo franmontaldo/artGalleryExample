@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct ArtGalleryExampleApp: App {
-    let model = ArtGalleryViewModel(artAPIService: ArtAPIService())
+    let model = ArtGalleryViewModel(service: ArtAPIService())
     
     var body: some Scene {
         WindowGroup {
