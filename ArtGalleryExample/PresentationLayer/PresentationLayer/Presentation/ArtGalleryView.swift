@@ -12,29 +12,38 @@ public struct ArtGalleryView: View {
     @State private var isFetchingNextPage = false
     
     public init(viewModel: ArtGalleryViewModel, isFetchingNextPage: Bool = false) {
-        _viewModel = StateObject(wrappedValue:viewModel)
-        _isFetchingNextPage = State(wrappedValue:isFetchingNextPage)
+        _viewModel = StateObject(wrappedValue: viewModel)
+        _isFetchingNextPage = State(wrappedValue: isFetchingNextPage)
     }
     
     public var body: some View {
         NavigationView {
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
-                ScrollView {
-                    LazyVStack {
-                        ForEach(viewModel.artworks) { artwork in
-                            ArtGallerySectionView(artwork: artwork)
-                                .onAppear {
-                                    if shouldLoadNextPage(for: artwork) {
-                                        loadNextPage()
+                VStack {
+                    if viewModel.artworks.isEmpty {
+                        RefreshLoaderView()
+                            .frame(height: UIScreen.main.bounds.size.height * 0.1)
+                    }
+                    ScrollView {
+                        LazyVStack {
+                            ForEach(viewModel.artworks) { artwork in
+                                ArtGallerySectionView(artwork: artwork)
+                                    .onAppear {
+                                        if shouldLoadNextPage(for: artwork) {
+                                            loadNextPage()
+                                        }
                                     }
-                                }
-                            
+                            }
                         }
                     }
-                }
-                .onAppear {
-                    viewModel.fetchArtworks()
+                    .refreshable {
+                        viewModel.refreshArtworks()
+                    }
+                    .disabled(viewModel.artworks.isEmpty)
+                    .onAppear {
+                        viewModel.fetchArtworks()
+                    }
                 }
             }
         }
@@ -53,7 +62,6 @@ public struct ArtGalleryView: View {
         isFetchingNextPage = false
     }
 }
-
 
 public struct ArtGallerySectionView: View {
     @StateObject var artwork: ArtworkViewModel
@@ -81,6 +89,18 @@ public struct ArtGallerySectionView: View {
                     .multilineTextAlignment(.leading)
             }
             .padding()
+        }
+    }
+}
+
+public struct RefreshLoaderView: View {
+    public var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                Color.gray.edgesIgnoringSafeArea(.all)
+                ProgressView()
+            }
+            .frame(width: geometry.size.width, height: geometry.size.height)
         }
     }
 }
