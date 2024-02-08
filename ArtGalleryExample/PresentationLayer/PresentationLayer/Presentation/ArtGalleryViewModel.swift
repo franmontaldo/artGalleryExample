@@ -20,7 +20,7 @@ public protocol ArtGalleryViewModelProtocol: AnyObject {
 
 public class ArtGalleryViewModel: ObservableObject, ArtGalleryViewModelProtocol {
     public var pagination: Pagination?
-    private var currentPage = 2
+    private var currentPage = 1
     
     @Published public var error: Error?
     
@@ -70,6 +70,12 @@ public class ArtGalleryViewModel: ObservableObject, ArtGalleryViewModelProtocol 
                 self.artworks.forEach { $0.fetchArtworkImage() }
             }
             .store(in: &cancellables)
+    }
+    
+    public func refreshArtworks() {
+        currentPage = 1
+        artworks = []
+        fetchArtworks()
     }
 }
 

@@ -21,6 +21,12 @@ public struct ArtworkResponse: Codable {
         pagination = try container.decode(Pagination.self, forKey: .pagination)
         artworksData = try container.decode([Artwork].self, forKey: .artworksData)
     }
+    
+    init(pagination: Pagination,
+         artworksData: [Artwork]) {
+        self.pagination = pagination
+        self.artworksData = artworksData
+    }
 }
 
 public struct Pagination: Codable {
@@ -47,6 +53,19 @@ public struct Pagination: Codable {
         currentPage = try container.decode(Int.self, forKey: .currentPage)
         nextURL = try container.decode(String.self, forKey: .nextURL)
     }
+    
+    init(total: Int,
+         limit: Int, offset: Int,
+         totalPages: Int,
+         currentPage: Int,
+         nextURL: String) {
+            self.total = total
+            self.limit = limit
+            self.offset = offset
+            self.totalPages = totalPages
+            self.currentPage = currentPage
+            self.nextURL = nextURL
+        }
 }
 
 public struct Artwork: Codable {
@@ -76,6 +95,22 @@ public struct Artwork: Codable {
         mediumDisplay = try container.decode(String?.self, forKey: .mediumDisplay)
         description = try container.decode(String?.self, forKey: .description)
         imageID = try container.decodeIfPresent(String.self, forKey: .imageID)
+    }
+    
+    init(id: Int,
+         title: String,
+         artistDisplay: String?,
+         dateDisplay: String?,
+         mediumDisplay: String?,
+         description: String?,
+         imageID: String?) {
+        self.id = id
+        self.title = title
+        self.artistDisplay = artistDisplay
+        self.dateDisplay = dateDisplay
+        self.mediumDisplay = mediumDisplay
+        self.description = description
+        self.imageID = imageID
     }
 }
 
