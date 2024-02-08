@@ -7,29 +7,29 @@
 
 import Foundation
 
-struct ArtworkResponse: Codable {
-    let pagination: Pagination
-    let artworksData: [Artwork]
+public struct ArtworkResponse: Codable {
+    public let pagination: Pagination
+    public let artworksData: [Artwork]
     
     enum CodingKeys: String, CodingKey {
         case pagination
         case artworksData = "data"
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         pagination = try container.decode(Pagination.self, forKey: .pagination)
         artworksData = try container.decode([Artwork].self, forKey: .artworksData)
     }
 }
 
-struct Pagination: Codable {
-    let total: Int
-    let limit: Int
-    let offset: Int
-    let totalPages: Int
-    let currentPage: Int
-    let nextURL: String
+public struct Pagination: Codable {
+    public let total: Int
+    public let limit: Int
+    public let offset: Int
+    public let totalPages: Int
+    public let currentPage: Int
+    public let nextURL: String
 
     enum CodingKeys: String, CodingKey {
         case total, limit, offset
@@ -38,7 +38,7 @@ struct Pagination: Codable {
         case nextURL = "next_url"
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         total = try container.decode(Int.self, forKey: .total)
         limit = try container.decode(Int.self, forKey: .limit)
@@ -49,14 +49,14 @@ struct Pagination: Codable {
     }
 }
 
-struct Artwork: Codable {
-    let id: Int
-    let title: String
-    let artistDisplay: String?
-    let dateDisplay: String?
-    let mediumDisplay: String?
-    let description: String?
-    let imageID: String?
+public struct Artwork: Codable {
+    public let id: Int
+    public let title: String
+    public let artistDisplay: String?
+    public let dateDisplay: String?
+    public let mediumDisplay: String?
+    public let description: String?
+    public let imageID: String?
 
     enum CodingKeys: String, CodingKey {
         case id, title
@@ -67,7 +67,7 @@ struct Artwork: Codable {
         case imageID = "image_id"
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
         title = try container.decode(String.self, forKey: .title)

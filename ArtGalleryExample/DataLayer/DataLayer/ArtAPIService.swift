@@ -11,21 +11,19 @@ import UIKit
 import SwiftUI
 import Combine
 
-protocol ArtAPIServiceProtocol {
+public protocol ArtAPIServiceProtocol {
     func fetchArtworks(page: Int, limit: Int) -> AnyPublisher<(artworks: [Artwork], pagination: Pagination), Error>
     func fetchArtworkImage(withID imageID: String) -> AnyPublisher<Image, Error>
-//    func fetchArtist(artistId: Int) -> AnyPublisher<ArtistData, Error>
-
 }
 
-class ArtAPIService: ArtAPIServiceProtocol {
+public class ArtAPIService: ArtAPIServiceProtocol {
     private let session: Session
     
-    init(session: Session = .default) {
+    public init(session: Session = .default) {
         self.session = session
     }
     
-    func fetchArtworks(page: Int, limit: Int) -> AnyPublisher<(artworks: [Artwork], pagination: Pagination), Error> {
+    public func fetchArtworks(page: Int, limit: Int) -> AnyPublisher<(artworks: [Artwork], pagination: Pagination), Error> {
         let url = Endpoint.baseURL.rawValue + "artworks"
         let parameters: [String: Any] = ["page": page, "limit": limit]
 
@@ -44,7 +42,7 @@ class ArtAPIService: ArtAPIServiceProtocol {
     }
 
 
-    func fetchArtworkImage(withID imageID: String) -> AnyPublisher<Image, Error> {
+    public func fetchArtworkImage(withID imageID: String) -> AnyPublisher<Image, Error> {
         let imageURL = Endpoint.imageBaseURL.rawValue + "\(imageID)/full/400,/0/default.jpg"
         return session
             .request(imageURL)
@@ -61,8 +59,4 @@ class ArtAPIService: ArtAPIServiceProtocol {
             .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
-
-//    func fetchArtist(artistId: Int) -> AnyPublisher<ArtistData, Error> {
-//        // todo
-//    }
 }

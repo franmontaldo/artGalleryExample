@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import PresentationLayer
+import DataLayer
 
 @main
 struct ArtGalleryExampleApp: App {

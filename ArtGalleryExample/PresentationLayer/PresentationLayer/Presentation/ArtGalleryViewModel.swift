@@ -7,8 +7,9 @@
 
 import SwiftUI
 import Combine
+import DataLayer
 
-protocol ArtGalleryViewModelProtocol: AnyObject {
+public protocol ArtGalleryViewModelProtocol: AnyObject {
     var pagination: Pagination? { get }
     var artworks: [ArtworkViewModel] { get }
     var error: Error? { get }
@@ -17,19 +18,19 @@ protocol ArtGalleryViewModelProtocol: AnyObject {
     func loadNextPage()
 }
 
-class ArtGalleryViewModel: ObservableObject, ArtGalleryViewModelProtocol {
-    var pagination: Pagination?
+public class ArtGalleryViewModel: ObservableObject, ArtGalleryViewModelProtocol {
+    public var pagination: Pagination?
     private var currentPage = 2
     
-    @Published var error: Error?
+    @Published public var error: Error?
     
-    @Published var artworks: [ArtworkViewModel] = []
+    @Published public var artworks: [ArtworkViewModel] = []
     
     private let service: ArtAPIServiceProtocol
     
     private var cancellables: Set<AnyCancellable> = []
     
-    init(service: ArtAPIServiceProtocol) {
+    public init(service: ArtAPIServiceProtocol) {
         self.service = service
     }
     
@@ -43,7 +44,7 @@ class ArtGalleryViewModel: ObservableObject, ArtGalleryViewModelProtocol {
         }
     }
     
-    func fetchArtworks() {
+    public func fetchArtworks() {
         service.fetchArtworks(page: 1, limit: 20)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }) { artworks, pagination in
@@ -55,7 +56,7 @@ class ArtGalleryViewModel: ObservableObject, ArtGalleryViewModelProtocol {
             .store(in: &cancellables)
     }
     
-    func loadNextPage() {
+    public func loadNextPage() {
         let totalPages = pagination?.totalPages ?? 1
         guard currentPage < totalPages else { return }
         service.fetchArtworks(page: currentPage + 1, limit: 20)
@@ -73,7 +74,7 @@ class ArtGalleryViewModel: ObservableObject, ArtGalleryViewModelProtocol {
 }
 
 
-protocol ArtworkViewModelProtocol: Identifiable {
+public protocol ArtworkViewModelProtocol: Identifiable {
     var id: Int { get }
     var title: String { get }
     var artistDisplay: String { get }
@@ -84,24 +85,24 @@ protocol ArtworkViewModelProtocol: Identifiable {
     func fetchArtworkImage()
 }
 
-class ArtworkViewModel: ArtworkViewModelProtocol, ObservableObject, Equatable {
-    static func == (lhs: ArtworkViewModel, rhs: ArtworkViewModel) -> Bool { lhs.id == rhs.id }
+public class ArtworkViewModel: ArtworkViewModelProtocol, ObservableObject, Equatable {
+    public static func == (lhs: ArtworkViewModel, rhs: ArtworkViewModel) -> Bool { lhs.id == rhs.id }
     
-    let id: Int
-    let title: String
-    let artistDisplay: String
-    var imageID: String?
+    public let id: Int
+    public let title: String
+    public let artistDisplay: String
+    public var imageID: String?
     let description: String?
     
-    @Published var error: Error?
+    @Published public var error: Error?
     
-    @Published var image: Image?
+    @Published public var image: Image?
     
     private let service: ArtAPIServiceProtocol
     
     private var cancellables: Set<AnyCancellable> = []
     
-    init(artwork: Artwork, service: ArtAPIServiceProtocol) {
+    public init(artwork: Artwork, service: ArtAPIServiceProtocol) {
         self.service = service
         self.id = artwork.id
         self.title = artwork.title
@@ -110,7 +111,7 @@ class ArtworkViewModel: ArtworkViewModelProtocol, ObservableObject, Equatable {
         self.imageID = artwork.imageID
     }
     
-    func fetchArtworkImage() {
+    public func fetchArtworkImage() {
         guard let imageID = imageID else { return }
         service.fetchArtworkImage(withID: imageID)
             .receive(on: DispatchQueue.main)

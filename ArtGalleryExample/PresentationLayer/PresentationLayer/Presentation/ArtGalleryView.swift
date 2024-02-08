@@ -7,11 +7,16 @@
 
 import SwiftUI
 
-struct ArtGalleryView: View {
+public struct ArtGalleryView: View {
     @StateObject var viewModel: ArtGalleryViewModel
     @State private var isFetchingNextPage = false
     
-    var body: some View {
+    public init(viewModel: ArtGalleryViewModel, isFetchingNextPage: Bool = false) {
+        _viewModel = StateObject(wrappedValue:viewModel)
+        _isFetchingNextPage = State(wrappedValue:isFetchingNextPage)
+    }
+    
+    public var body: some View {
         NavigationView {
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
@@ -50,10 +55,10 @@ struct ArtGalleryView: View {
 }
 
 
-struct ArtGallerySectionView: View {
+public struct ArtGallerySectionView: View {
     @StateObject var artwork: ArtworkViewModel
     
-    var body: some View {
+    public var body: some View {
         NavigationLink(destination: ArtworkView(artwork: artwork)) {
             VStack(alignment: .leading) {
                 if artwork.image == nil {

@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct ArtistResponse: Codable {
+public struct ArtistResponse: Codable {
     let data: ArtistData
 }
 
-struct ArtistData: Codable {
+public struct ArtistData: Codable {
     let id: Int
     let apiModel: String
     let apiLink: String

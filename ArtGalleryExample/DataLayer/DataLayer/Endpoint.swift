@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Endpoint: String {
+public enum Endpoint: String {
     case baseURL = "https://api.artic.edu/api/v1/"
     case imageBaseURL = "https://www.artic.edu/iiif/2/"
 }
