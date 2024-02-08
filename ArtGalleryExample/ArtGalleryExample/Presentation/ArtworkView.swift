@@ -12,13 +12,8 @@ struct ArtworkView: View {
     
     init(artwork: ArtworkViewModel) {
         _artwork = StateObject(wrappedValue: artwork)
-        
-        // Set the navigation bar appearance
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .black
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }

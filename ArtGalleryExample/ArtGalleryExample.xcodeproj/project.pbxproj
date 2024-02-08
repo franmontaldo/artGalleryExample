@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0B1242002B749B350020EA6F /* ArtworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1241FF2B749B350020EA6F /* ArtworkView.swift */; };
-		0B1242022B74BBA70020EA6F /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1242012B74BBA70020EA6F /* NSAttributedString+Extension.swift */; };
+		0B14A1C72B74C1EF00BF4B73 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B14A1C62B74C1EF00BF4B73 /* String+Extension.swift */; };
 		0B14D1A22B6D513000BD6AEF /* ArtGalleryExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B14D1A12B6D513000BD6AEF /* ArtGalleryExampleApp.swift */; };
 		0B14D1A62B6D513100BD6AEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B14D1A52B6D513100BD6AEF /* Assets.xcassets */; };
 		0B14D1A92B6D513100BD6AEF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B14D1A82B6D513100BD6AEF /* Preview Assets.xcassets */; };
@@ -43,7 +43,7 @@
 
 /* Begin PBXFileReference section */
 		0B1241FF2B749B350020EA6F /* ArtworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkView.swift; sourceTree = "<group>"; };
-		0B1242012B74BBA70020EA6F /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
+		0B14A1C62B74C1EF00BF4B73 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		0B14D19E2B6D513000BD6AEF /* ArtGalleryExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArtGalleryExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B14D1A12B6D513000BD6AEF /* ArtGalleryExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtGalleryExampleApp.swift; sourceTree = "<group>"; };
 		0B14D1A52B6D513100BD6AEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -112,7 +112,6 @@
 			children = (
 				0B3629C02B733D9A00A08324 /* Extensions */,
 				0B14D1CD2B6D541400BD6AEF /* Presentation */,
-				0B14D1CC2B6D540C00BD6AEF /* Repository */,
 				0B14D1CB2B6D540200BD6AEF /* Data */,
 				0B14D1A12B6D513000BD6AEF /* ArtGalleryExampleApp.swift */,
 				0B14D1A52B6D513100BD6AEF /* Assets.xcassets */,
@@ -157,13 +156,6 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		0B14D1CC2B6D540C00BD6AEF /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Repository;
-			sourceTree = "<group>";
-		};
 		0B14D1CD2B6D541400BD6AEF /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,7 +169,7 @@
 		0B3629C02B733D9A00A08324 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				0B1242012B74BBA70020EA6F /* NSAttributedString+Extension.swift */,
+				0B14A1C62B74C1EF00BF4B73 /* String+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -318,8 +310,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B1242022B74BBA70020EA6F /* NSAttributedString+Extension.swift in Sources */,
 				0B14D1D52B6D54D100BD6AEF /* ArtworkModel.swift in Sources */,
+				0B14A1C72B74C1EF00BF4B73 /* String+Extension.swift in Sources */,
 				0B3629B82B72A9B800A08324 /* Endpoint.swift in Sources */,
 				0B3629BD2B73300C00A08324 /* ArtistModel.swift in Sources */,
 				0B1242002B749B350020EA6F /* ArtworkView.swift in Sources */,

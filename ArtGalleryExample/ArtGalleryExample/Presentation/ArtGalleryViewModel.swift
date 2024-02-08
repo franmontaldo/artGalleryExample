@@ -106,7 +106,7 @@ class ArtworkViewModel: ArtworkViewModelProtocol, ObservableObject, Equatable {
         self.id = artwork.id
         self.title = artwork.title
         self.artistDisplay = artwork.artistDisplay ?? "Unknown"
-        self.description = artwork.description
+        self.description = String(htmlString: artwork.description ?? "No description available")
         self.imageID = artwork.imageID
     }
     
