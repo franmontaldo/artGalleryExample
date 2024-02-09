@@ -49,7 +49,7 @@ The app is designed following clean architecture principles, with a clear separa
 Additionally, the project is modularized, with each module representing a distinct layer of the app's architecture. This modular approach not only helps prevent circular dependencies but also maintains a well-organized codebase. For the sake of convenience, I used Xcode native frameworks for modularization, though in an ideal scenario, Swift Package Manager (SPM) would be a preferred choice.
 
 ## Challenge notes
-- I wanted to mention I used CoreData because the instructions said to avoid external dependencies, but i would have chosen Realm to do it.
+_I wanted to mention I used CoreData because the instructions said to avoid external dependencies, but i would have chosen Realm to do it._
 
 - [x] Use Dependency Injection
 - [x] Use Modularization (You can choose CocoaPods, SPM or native Xcode Frameworks/Libraries)
