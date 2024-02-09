@@ -10,6 +10,10 @@
 		0B20D5922B74D8480092CBE0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0B20D5912B74D8480092CBE0 /* Alamofire */; };
 		0B835D9E2B75E4A700A894A9 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B835D9D2B75E4A700A894A9 /* StorageService.swift */; };
 		0B835DA12B75E60700A894A9 /* StorageDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B835D9F2B75E60700A894A9 /* StorageDataModel.xcdatamodeld */; };
+		0B835DA62B75E7E100A894A9 /* ArtworkData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B835DA22B75E7E100A894A9 /* ArtworkData+CoreDataClass.swift */; };
+		0B835DA72B75E7E100A894A9 /* ArtworkData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B835DA32B75E7E100A894A9 /* ArtworkData+CoreDataProperties.swift */; };
+		0B835DA82B75E7E100A894A9 /* ImageData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B835DA42B75E7E100A894A9 /* ImageData+CoreDataClass.swift */; };
+		0B835DA92B75E7E100A894A9 /* ImageData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B835DA52B75E7E100A894A9 /* ImageData+CoreDataProperties.swift */; };
 		0BF5C32C2B74CE7000D696C1 /* DataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF5C3232B74CE6F00D696C1 /* DataLayer.framework */; };
 		0BF5C3312B74CE7000D696C1 /* DataLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF5C3302B74CE7000D696C1 /* DataLayerTests.swift */; };
 		0BF5C3322B74CE7000D696C1 /* DataLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BF5C3262B74CE6F00D696C1 /* DataLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -31,6 +35,10 @@
 /* Begin PBXFileReference section */
 		0B835D9D2B75E4A700A894A9 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		0B835DA02B75E60700A894A9 /* StorageDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StorageDataModel.xcdatamodel; sourceTree = "<group>"; };
+		0B835DA22B75E7E100A894A9 /* ArtworkData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ArtworkData+CoreDataClass.swift"; path = "../../../ArtworkData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0B835DA32B75E7E100A894A9 /* ArtworkData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ArtworkData+CoreDataProperties.swift"; path = "../../../ArtworkData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0B835DA42B75E7E100A894A9 /* ImageData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ImageData+CoreDataClass.swift"; path = "../../../ImageData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0B835DA52B75E7E100A894A9 /* ImageData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ImageData+CoreDataProperties.swift"; path = "../../../ImageData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0BF5C3232B74CE6F00D696C1 /* DataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BF5C3262B74CE6F00D696C1 /* DataLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataLayer.h; sourceTree = "<group>"; };
 		0BF5C32B2B74CE7000D696C1 /* DataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +88,10 @@
 		0B835D9C2B75E3A700A894A9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0B835DA22B75E7E100A894A9 /* ArtworkData+CoreDataClass.swift */,
+				0B835DA32B75E7E100A894A9 /* ArtworkData+CoreDataProperties.swift */,
+				0B835DA42B75E7E100A894A9 /* ImageData+CoreDataClass.swift */,
+				0B835DA52B75E7E100A894A9 /* ImageData+CoreDataProperties.swift */,
 				0BF5C3562B74CF0A00D696C1 /* ArtworkModel.swift */,
 			);
 			path = Models;
@@ -239,8 +251,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B835DA92B75E7E100A894A9 /* ImageData+CoreDataProperties.swift in Sources */,
+				0B835DA62B75E7E100A894A9 /* ArtworkData+CoreDataClass.swift in Sources */,
+				0B835DA82B75E7E100A894A9 /* ImageData+CoreDataClass.swift in Sources */,
 				0BF5C3592B74CF0A00D696C1 /* Endpoint.swift in Sources */,
 				0B835D9E2B75E4A700A894A9 /* StorageService.swift in Sources */,
+				0B835DA72B75E7E100A894A9 /* ArtworkData+CoreDataProperties.swift in Sources */,
 				0BF5C35A2B74CF0A00D696C1 /* ArtworkModel.swift in Sources */,
 				0B835DA12B75E60700A894A9 /* StorageDataModel.xcdatamodeld in Sources */,
 				0BF5C3582B74CF0A00D696C1 /* ArtAPIService.swift in Sources */,

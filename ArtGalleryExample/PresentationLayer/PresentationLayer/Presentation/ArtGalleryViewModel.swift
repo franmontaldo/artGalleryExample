@@ -27,11 +27,13 @@ public class ArtGalleryViewModel: ObservableObject, ArtGalleryViewModelProtocol 
     @Published public var artworks: [ArtworkViewModel] = []
     
     private let service: ArtAPIServiceProtocol
+    private let storageService: StorageServiceProtocol
     
     private var cancellables: Set<AnyCancellable> = []
     
-    public init(service: ArtAPIServiceProtocol) {
+    public init(service: ArtAPIServiceProtocol, storage: StorageServiceProtocol) {
         self.service = service
+        self.storageService = storage
     }
     
     private func observeArtworkChanges() {
