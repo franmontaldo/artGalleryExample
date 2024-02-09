@@ -8,13 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		0B20D5922B74D8480092CBE0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0B20D5912B74D8480092CBE0 /* Alamofire */; };
+		0B835D9E2B75E4A700A894A9 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B835D9D2B75E4A700A894A9 /* StorageService.swift */; };
+		0B835DA12B75E60700A894A9 /* StorageDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B835D9F2B75E60700A894A9 /* StorageDataModel.xcdatamodeld */; };
+		0B933D7E2B76068300BB125C /* ImageDataEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B933D7A2B76068300BB125C /* ImageDataEntity+CoreDataClass.swift */; };
+		0B933D7F2B76068300BB125C /* ImageDataEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B933D7B2B76068300BB125C /* ImageDataEntity+CoreDataProperties.swift */; };
+		0B933D802B76068300BB125C /* ArtworkDataEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B933D7C2B76068300BB125C /* ArtworkDataEntity+CoreDataClass.swift */; };
+		0B933D812B76068300BB125C /* ArtworkDataEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B933D7D2B76068300BB125C /* ArtworkDataEntity+CoreDataProperties.swift */; };
 		0BF5C32C2B74CE7000D696C1 /* DataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BF5C3232B74CE6F00D696C1 /* DataLayer.framework */; };
 		0BF5C3312B74CE7000D696C1 /* DataLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF5C3302B74CE7000D696C1 /* DataLayerTests.swift */; };
 		0BF5C3322B74CE7000D696C1 /* DataLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BF5C3262B74CE6F00D696C1 /* DataLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BF5C3582B74CF0A00D696C1 /* ArtAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF5C3542B74CF0A00D696C1 /* ArtAPIService.swift */; };
 		0BF5C3592B74CF0A00D696C1 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF5C3552B74CF0A00D696C1 /* Endpoint.swift */; };
 		0BF5C35A2B74CF0A00D696C1 /* ArtworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF5C3562B74CF0A00D696C1 /* ArtworkModel.swift */; };
-		0BF5C35B2B74CF0A00D696C1 /* ArtistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF5C3572B74CF0A00D696C1 /* ArtistModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +33,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B835D9D2B75E4A700A894A9 /* StorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		0B835DA02B75E60700A894A9 /* StorageDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StorageDataModel.xcdatamodel; sourceTree = "<group>"; };
+		0B933D7A2B76068300BB125C /* ImageDataEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ImageDataEntity+CoreDataClass.swift"; path = "../../../ImageDataEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0B933D7B2B76068300BB125C /* ImageDataEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ImageDataEntity+CoreDataProperties.swift"; path = "../../../ImageDataEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0B933D7C2B76068300BB125C /* ArtworkDataEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ArtworkDataEntity+CoreDataClass.swift"; path = "../../../ArtworkDataEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0B933D7D2B76068300BB125C /* ArtworkDataEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ArtworkDataEntity+CoreDataProperties.swift"; path = "../../../ArtworkDataEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0BF5C3232B74CE6F00D696C1 /* DataLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BF5C3262B74CE6F00D696C1 /* DataLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataLayer.h; sourceTree = "<group>"; };
 		0BF5C32B2B74CE7000D696C1 /* DataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,7 +46,6 @@
 		0BF5C3542B74CF0A00D696C1 /* ArtAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtAPIService.swift; sourceTree = "<group>"; };
 		0BF5C3552B74CF0A00D696C1 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		0BF5C3562B74CF0A00D696C1 /* ArtworkModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtworkModel.swift; sourceTree = "<group>"; };
-		0BF5C3572B74CF0A00D696C1 /* ArtistModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +68,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B835D992B75E36000A894A9 /* StorageService */ = {
+			isa = PBXGroup;
+			children = (
+				0B835D9D2B75E4A700A894A9 /* StorageService.swift */,
+			);
+			path = StorageService;
+			sourceTree = "<group>";
+		};
+		0B835D9A2B75E38400A894A9 /* APIService */ = {
+			isa = PBXGroup;
+			children = (
+				0BF5C3542B74CF0A00D696C1 /* ArtAPIService.swift */,
+				0BF5C3552B74CF0A00D696C1 /* Endpoint.swift */,
+			);
+			path = APIService;
+			sourceTree = "<group>";
+		};
+		0B835D9C2B75E3A700A894A9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0B933D7A2B76068300BB125C /* ImageDataEntity+CoreDataClass.swift */,
+				0B933D7B2B76068300BB125C /* ImageDataEntity+CoreDataProperties.swift */,
+				0B933D7C2B76068300BB125C /* ArtworkDataEntity+CoreDataClass.swift */,
+				0B933D7D2B76068300BB125C /* ArtworkDataEntity+CoreDataProperties.swift */,
+				0BF5C3562B74CF0A00D696C1 /* ArtworkModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		0BF5C3192B74CE6F00D696C1 = {
 			isa = PBXGroup;
 			children = (
@@ -79,11 +118,11 @@
 		0BF5C3252B74CE6F00D696C1 /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
-				0BF5C3542B74CF0A00D696C1 /* ArtAPIService.swift */,
-				0BF5C3572B74CF0A00D696C1 /* ArtistModel.swift */,
-				0BF5C3562B74CF0A00D696C1 /* ArtworkModel.swift */,
-				0BF5C3552B74CF0A00D696C1 /* Endpoint.swift */,
+				0B835D9C2B75E3A700A894A9 /* Models */,
+				0B835D9A2B75E38400A894A9 /* APIService */,
+				0B835D992B75E36000A894A9 /* StorageService */,
 				0BF5C3262B74CE6F00D696C1 /* DataLayer.h */,
+				0B835D9F2B75E60700A894A9 /* StorageDataModel.xcdatamodeld */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
@@ -212,9 +251,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BF5C35B2B74CF0A00D696C1 /* ArtistModel.swift in Sources */,
+				0B933D812B76068300BB125C /* ArtworkDataEntity+CoreDataProperties.swift in Sources */,
 				0BF5C3592B74CF0A00D696C1 /* Endpoint.swift in Sources */,
+				0B933D7F2B76068300BB125C /* ImageDataEntity+CoreDataProperties.swift in Sources */,
+				0B835D9E2B75E4A700A894A9 /* StorageService.swift in Sources */,
 				0BF5C35A2B74CF0A00D696C1 /* ArtworkModel.swift in Sources */,
+				0B835DA12B75E60700A894A9 /* StorageDataModel.xcdatamodeld in Sources */,
+				0B933D802B76068300BB125C /* ArtworkDataEntity+CoreDataClass.swift in Sources */,
+				0B933D7E2B76068300BB125C /* ImageDataEntity+CoreDataClass.swift in Sources */,
 				0BF5C3582B74CF0A00D696C1 /* ArtAPIService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,6 +556,19 @@
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		0B835D9F2B75E60700A894A9 /* StorageDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0B835DA02B75E60700A894A9 /* StorageDataModel.xcdatamodel */,
+			);
+			currentVersion = 0B835DA02B75E60700A894A9 /* StorageDataModel.xcdatamodel */;
+			path = StorageDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0BF5C31A2B74CE6F00D696C1 /* Project object */;
 }

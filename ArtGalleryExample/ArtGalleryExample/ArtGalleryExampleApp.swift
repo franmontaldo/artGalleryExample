@@ -11,7 +11,7 @@ import DataLayer
 
 @main
 struct ArtGalleryExampleApp: App {
-    let model = ArtGalleryViewModel(service: ArtAPIService())
+    let model = ArtGalleryViewModel(service: ArtAPIService(), storage: StorageService())
     
     var body: some Scene {
         WindowGroup {
