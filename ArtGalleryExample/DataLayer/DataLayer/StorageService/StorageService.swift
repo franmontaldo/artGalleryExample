@@ -19,20 +19,28 @@ public protocol StorageServiceProtocol {
 }
 
 public class StorageService: StorageServiceProtocol {
-    private let persistentContainer: NSPersistentContainer
-    
-    public init() {
-        persistentContainer = NSPersistentContainer(name: "ArtworksModel")
-        persistentContainer.loadPersistentStores(completionHandler: { (storeDescription, error) in
+    private static var persistentContainer: NSPersistentContainer = {
+        let momdName = "StorageDataModel"
+        guard let modelURL = Bundle(for: StorageService.self).url(forResource: "StorageDataModel", withExtension:"momd") else {
+                fatalError("Error loading model from bundle")
+        }
+        guard let mom = NSManagedObjectModel(contentsOf: modelURL) else {
+            fatalError("Error initializing mom from: \(modelURL)")
+        }
+        let container = NSPersistentContainer(name: momdName, managedObjectModel: mom)
+        container.loadPersistentStores { (storeDescription, error) in
             if let error = error {
                 fatalError("Failed to load Core Data stack: \(error)")
             }
-        })
-    }
+        }
+        return container
+    }()
+    
+    public init() { }
     
     public func fetchArtworks(page: Int, limit: Int) -> AnyPublisher<(artworks: [Artwork], pagination: Pagination), Error> {
-        let managedContext = persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<ArtworkData> = ArtworkData.fetchRequest()
+        let managedContext = StorageService.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<ArtworkDataEntity> = ArtworkDataEntity.fetchRequest()
         let offset = (page - 1) * limit
         fetchRequest.fetchLimit = limit
         fetchRequest.fetchOffset = offset
@@ -49,7 +57,7 @@ public class StorageService: StorageServiceProtocol {
                             description: artworkEntity.descriptionDisplay,
                             imageID: artworkEntity.imageID)
                 }
-                let totalArtworksCount = try managedContext.count(for: ArtworkData.fetchRequest())
+                let totalArtworksCount = try managedContext.count(for: ArtworkDataEntity.fetchRequest())
                 let totalPages = Int(ceil(Double(totalArtworksCount) / Double(limit)))
                 let currentPage = page
                 let nextPage = page + 1
@@ -68,8 +76,8 @@ public class StorageService: StorageServiceProtocol {
     }
     
     public func fetchArtworkImage(withID imageID: String) -> AnyPublisher<Image, Error> {
-        let managedContext = persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<ImageData> = ImageData.fetchRequest()
+        let managedContext = StorageService.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<ImageDataEntity> = ImageDataEntity.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "imageID == %@", imageID)
         
         return Future<Image, Error> { promise in
@@ -94,9 +102,9 @@ public class StorageService: StorageServiceProtocol {
     }
     
     public func pushArtworks(_ artworks: [Artwork]) {
-        let managedContext = persistentContainer.viewContext
+        let managedContext = StorageService.persistentContainer.viewContext
         artworks.forEach { artwork in
-            let artworkEntity = ArtworkData(context: managedContext)
+            let artworkEntity = ArtworkDataEntity(context: managedContext)
             artworkEntity.id = Int32(artwork.id)
             artworkEntity.title = artwork.title
             artworkEntity.artistDisplay = artwork.artistDisplay
@@ -114,8 +122,8 @@ public class StorageService: StorageServiceProtocol {
     
     
     public func pushArtworkImage(imageID: String, imageData: Data) {
-        let managedContext = persistentContainer.viewContext
-        let imageEntity = ImageData(context: managedContext)
+        let managedContext = StorageService.persistentContainer.viewContext
+        let imageEntity = ImageDataEntity(context: managedContext)
         imageEntity.imageID = imageID
         imageEntity.imageData = imageData
         do {
@@ -126,11 +134,11 @@ public class StorageService: StorageServiceProtocol {
     }
     
     public func updateArtworks(with newArtworks: [Artwork]) {
-        let managedContext = persistentContainer.viewContext
+        let managedContext = StorageService.persistentContainer.viewContext
         do {
-            let existingArtworksFetchRequest: NSFetchRequest<ArtworkData> = ArtworkData.fetchRequest()
+            let existingArtworksFetchRequest: NSFetchRequest<ArtworkDataEntity> = ArtworkDataEntity.fetchRequest()
             let existingArtworks = try managedContext.fetch(existingArtworksFetchRequest)
-            var existingArtworkDict: [Int: ArtworkData] = [:]
+            var existingArtworkDict: [Int: ArtworkDataEntity] = [:]
             for artworkEntity in existingArtworks {
                 existingArtworkDict[Int(artworkEntity.id)] = artworkEntity
             }
@@ -143,7 +151,7 @@ public class StorageService: StorageServiceProtocol {
                     existingArtworkEntity.descriptionDisplay = artwork.description
                     existingArtworkEntity.imageID = artwork.imageID
                 } else {
-                    let newArtworkEntity = ArtworkData(context: managedContext)
+                    let newArtworkEntity = ArtworkDataEntity(context: managedContext)
                     newArtworkEntity.id = Int32(artwork.id)
                     newArtworkEntity.title = artwork.title
                     newArtworkEntity.artistDisplay = artwork.artistDisplay
