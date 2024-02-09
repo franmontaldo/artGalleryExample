@@ -34,6 +34,10 @@ Clone the repo
    ```sh
    git clone https://github.com/franmontaldo/artGalleryExample.git
    ```
+### Run everything!
+To run the project just open it in XCode and press `⌘ + r` :D
+
+To run the tests you can press `⌘ + u`
 
 ## External Dependencies
 External Dependencies:
