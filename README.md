@@ -40,8 +40,6 @@ To run the project just open it in XCode and press `⌘ + r` :D
 To run the tests you can press `⌘ + u`
 
 ## External Dependencies
-External Dependencies:
-
 This project relies on one external dependencies: **Alamofire**. This library is used for making **network requests** to fetch data from the Art Institute of Chicago's API and it was added to the project using **Swift Package Manager (SPM)**, a lightweight and easy-to-use dependency management tool provided by Apple. **I chose SPM** because it allows developers to seamlessly integrate **pre-compiled** libraries into their projects, offering a convenient alternative to other dependency management solutions like CocoaPods.
 
 ## Architecture
